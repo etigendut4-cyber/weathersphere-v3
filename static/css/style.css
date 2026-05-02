@@ -1,0 +1,55 @@
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0c1929;--surface:#0f2240;--card:#132d52;--border:#1e4976;--sky:#38bdf8;--sky-dark:#0ea5e9;--blue:#3b82f6;--cyan:#22d3ee;--green:#22c55e;--gold:#f59e0b;--red:#ef4444;--text:#e0f2fe;--muted:#6b9fd4;--white:#fff}
+body{background:linear-gradient(180deg,var(--bg) 0%,#0a1628 100%);color:var(--text);font-family:'Inter',system-ui,sans-serif;min-height:100vh}
+.topnav{background:rgba(15,34,64,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;height:60px;position:sticky;top:0;z-index:100}
+.topnav .brand{font-size:1.3rem;font-weight:700;color:var(--sky);margin-right:2rem}
+.topnav a{color:var(--muted);text-decoration:none;padding:0.5rem 1rem;font-size:0.9rem;transition:0.2s}
+.topnav a:hover,.topnav a.active{color:var(--sky)}
+.container{max-width:1400px;margin:0 auto;padding:1.5rem}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem}
+.stat-card .label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
+.stat-card .value{font-size:1.8rem;font-weight:700;margin:0.3rem 0;color:var(--sky)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.card h2{font-size:1.1rem;color:var(--sky);margin-bottom:1rem}
+.city-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;cursor:pointer;transition:0.3s}
+.city-card:hover{border-color:var(--sky);box-shadow:0 0 20px rgba(56,189,248,0.15);transform:translateY(-2px)}
+.city-name{font-weight:700;font-size:1.1rem;color:var(--white);margin-bottom:0.2rem}
+.city-country{font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem}
+.city-temp{font-size:2.5rem;font-weight:700;color:var(--sky)}
+.city-condition{font-size:0.85rem;color:var(--muted)}
+.city-meta{display:flex;gap:1rem;font-size:0.8rem;color:var(--muted);margin-top:0.5rem}
+.section-title{font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:1.5rem}
+.forecast-row{display:flex;gap:0.8rem;margin-bottom:1rem}
+.forecast-day{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:0.8rem;flex:1;text-align:center}
+.forecast-day .day{font-size:0.8rem;color:var(--muted);margin-bottom:0.3rem}
+.forecast-day .icon{font-size:1.5rem;margin-bottom:0.3rem}
+.forecast-day .temps{font-size:0.85rem}
+.forecast-day .temps .high{color:var(--white);font-weight:600}
+.forecast-day .temps .low{color:var(--muted)}
+.forecast-day .rain{font-size:0.75rem;color:var(--sky);margin-top:0.2rem}
+.alert-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.8rem;display:flex;align-items:center;gap:1rem}
+.alert-icon{font-size:1.5rem;width:40px;text-align:center}
+.alert-info{flex:1}
+.alert-title{font-weight:600;font-size:0.95rem}
+.alert-desc{font-size:0.85rem;color:var(--muted);margin-top:0.2rem}
+.alert-time{font-size:0.75rem;color:var(--muted)}
+.badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.75rem;font-weight:600}
+.badge-danger{background:rgba(239,68,68,0.15);color:var(--red)}
+.badge-warning{background:rgba(245,158,11,0.15);color:var(--gold)}
+.badge-info{background:rgba(56,189,248,0.15);color:var(--sky)}
+.badge-active{background:rgba(34,197,94,0.15);color:var(--green)}
+.badge-idle{background:rgba(245,158,11,0.15);color:var(--gold)}
+.agent-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:0.8rem}
+.agent-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.agent-name{font-weight:700;font-size:1rem;color:var(--white)}
+.agent-desc{font-size:0.85rem;color:var(--muted);margin:0.5rem 0}
+.agent-stats{display:flex;gap:1.5rem;font-size:0.8rem}
+.agent-stats span{color:var(--sky);font-weight:600}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin:1rem 0}
+.detail-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.8rem;text-align:center}
+.detail-item .num{font-size:1.3rem;font-weight:700;color:var(--sky)}
+.detail-item .lbl{font-size:0.75rem;color:var(--muted)}

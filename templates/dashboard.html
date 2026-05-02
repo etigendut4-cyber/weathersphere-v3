@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WeatherSphere - Weather Intelligence</title><link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<nav class="topnav">
+  <div class="brand">🌤️ WeatherSphere</div>
+  <a href="/" class="active">Dashboard</a>
+  <a href="/alerts">Alerts</a>
+  <a href="/agents">AI Agents</a>
+</nav>
+<div class="container">
+  <div class="stats-row">
+    <div class="stat-card"><div class="label">Cities Monitored</div><div class="value">{{ cities|length }}</div></div>
+    <div class="stat-card"><div class="label">Active Alerts</div><div class="value" style="color:var(--gold)">{{ alerts|length }}</div></div>
+    <div class="stat-card"><div class="label">Avg Temperature</div><div class="value">{{ (cities|map(attribute='temp')|list|sum / cities|length)|round(1) }}°C</div></div>
+    <div class="stat-card"><div class="label">AI Agent Runs</div><div class="value">6,570</div></div>
+  </div>
+  <div class="section-title">🌍 Global Weather Overview</div>
+  <div class="grid-3">
+    {% for c in cities %}
+    <a href="/city/{{ c.name }}" style="text-decoration:none;color:inherit">
+    <div class="city-card">
+      <div style="display:flex;justify-content:space-between;align-items:start">
+        <div>
+          <div class="city-name">{{ c.icon }} {{ c.name }}</div>
+          <div class="city-country">{{ c.country }}</div>
+        </div>
+        <div class="city-temp">{{ c.temp }}°</div>
+      </div>
+      <div class="city-condition">{{ c.condition }}</div>
+      <div class="city-meta">
+        <span>💧 {{ c.humidity }}%</span>
+        <span>💨 {{ c.wind }} km/h</span>
+        <span>AQI {{ c.aqi }}</span>
+      </div>
+    </div></a>
+    {% endfor %}
+  </div>
+  <div class="grid-2" style="margin-top:1.5rem">
+    <div class="card">
+      <h2>📅 7-Day Forecast (Tokyo)</h2>
+      <div class="forecast-row">
+        {% for f in forecast %}
+        <div class="forecast-day">
+          <div class="day">{{ f.day }}</div>
+          <div class="icon">{{ f.icon }}</div>
+          <div class="temps"><span class="high">{{ f.high }}°</span> <span class="low">{{ f.low }}°</span></div>
+          <div class="rain">💧 {{ f.rain }}%</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="card">
+      <h2>🚨 Active Alerts</h2>
+      {% for a in alerts %}
+      <div class="alert-card">
+        <div class="alert-icon">{{ "🔴" if a.level == "danger" else "🟡" if a.level == "warning" else "🔵" }}</div>
+        <div class="alert-info">
+          <div class="alert-title">{{ a.title }}</div>
+          <div class="alert-desc">{{ a.desc }}</div>
+        </div>
+        <span class="badge badge-{{ a.level }}">{{ a.level }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div></body></html>

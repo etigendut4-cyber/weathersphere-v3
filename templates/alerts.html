@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alerts - WeatherSphere</title><link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<nav class="topnav">
+  <div class="brand">🌤️ WeatherSphere</div>
+  <a href="/">Dashboard</a><a href="/alerts" class="active">Alerts</a><a href="/agents">AI Agents</a>
+</nav>
+<div class="container">
+  <div class="section-title">🚨 Weather Alerts</div>
+  {% for a in alerts %}
+  <div class="alert-card" style="padding:1.5rem">
+    <div class="alert-icon" style="font-size:2rem">{{ "🔴" if a.level == "danger" else "🟡" if a.level == "warning" else "🔵" }}</div>
+    <div class="alert-info">
+      <div class="alert-title" style="font-size:1.1rem">{{ a.title }}</div>
+      <div class="alert-desc" style="font-size:0.9rem">{{ a.desc }}</div>
+      <div class="alert-time" style="margin-top:0.3rem">{{ a.time }}</div>
+    </div>
+    <span class="badge badge-{{ a.level }}">{{ a.level }}</span>
+  </div>
+  {% endfor %}
+</div></body></html>

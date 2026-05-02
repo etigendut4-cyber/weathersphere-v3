@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ city.name }} - WeatherSphere</title><link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<nav class="topnav">
+  <div class="brand">🌤️ WeatherSphere</div>
+  <a href="/">Dashboard</a><a href="/alerts">Alerts</a><a href="/agents">AI Agents</a>
+</nav>
+<div class="container">
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+    <span style="font-size:3rem">{{ city.icon }}</span>
+    <div>
+      <h1 style="font-size:1.8rem;color:var(--white)">{{ city.name }}, {{ city.country }}</h1>
+      <div style="color:var(--muted)">{{ city.condition }}</div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="label">Temperature</div><div class="value">{{ city.temp }}°C</div></div>
+    <div class="stat-card"><div class="label">Feels Like</div><div class="value">{{ city.feels }}°C</div></div>
+    <div class="stat-card"><div class="label">Humidity</div><div class="value">{{ city.humidity }}%</div></div>
+    <div class="stat-card"><div class="label">Wind</div><div class="value">{{ city.wind }} km/h</div></div>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-item"><div class="num">{{ city.high }}°</div><div class="lbl">High</div></div>
+    <div class="detail-item"><div class="num">{{ city.low }}°</div><div class="lbl">Low</div></div>
+    <div class="detail-item"><div class="num">{{ city.pressure }}</div><div class="lbl">Pressure hPa</div></div>
+    <div class="detail-item"><div class="num">{{ city.visibility }} km</div><div class="lbl">Visibility</div></div>
+    <div class="detail-item"><div class="num">{{ city.uv }}</div><div class="lbl">UV Index</div></div>
+    <div class="detail-item"><div class="num">{{ city.aqi }}</div><div class="lbl">AQI</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:1.5rem">
+    <div class="card">
+      <h2>📅 7-Day Forecast</h2>
+      <div class="forecast-row">
+        {% for f in forecast %}
+        <div class="forecast-day">
+          <div class="day">{{ f.day }}</div>
+          <div class="icon">{{ f.icon }}</div>
+          <div class="temps"><span class="high">{{ f.high }}°</span> <span class="low">{{ f.low }}°</span></div>
+          <div class="rain">💧 {{ f.rain }}%</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="card">
+      <h2>🤖 AI Weather Agents</h2>
+      {% for a in agents %}
+      <div class="agent-card">
+        <div class="agent-header">
+          <div class="agent-name">{{ a.name }}</div>
+          <span class="badge badge-{{ 'active' if a.status == 'active' else 'idle' }}">{{ a.status }}</span>
+        </div>
+        <div class="agent-desc">{{ a.desc }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div></body></html>

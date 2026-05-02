@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agents - WeatherSphere</title><link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head><body>
+<nav class="topnav">
+  <div class="brand">🌤️ WeatherSphere</div>
+  <a href="/">Dashboard</a><a href="/alerts">Alerts</a><a href="/agents" class="active">AI Agents</a>
+</nav>
+<div class="container">
+  <div class="section-title">🤖 AI Weather Agents</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="label">Total Runs</div><div class="value">6,570</div></div>
+    <div class="stat-card"><div class="label">Total Tokens</div><div class="value">34.5M</div></div>
+    <div class="stat-card"><div class="label">Active Agents</div><div class="value">3</div></div>
+    <div class="stat-card"><div class="label">Daily Cost</div><div class="value">$6.90</div></div>
+  </div>
+  {% for a in agents %}
+  <div class="agent-card">
+    <div class="agent-header">
+      <div class="agent-name">🤖 {{ a.name }}</div>
+      <span class="badge badge-{{ 'active' if a.status == 'active' else 'idle' }}">{{ a.status }}</span>
+    </div>
+    <div class="agent-desc">{{ a.desc }}</div>
+    <div class="agent-stats">
+      <div>Model: <span>{{ a.model }}</span></div>
+      <div>Runs: <span>{{ a.runs }}</span></div>
+      <div>Tokens: <span>{{ a.tokens }}</span></div>
+    </div>
+  </div>
+  {% endfor %}
+</div></body></html>
