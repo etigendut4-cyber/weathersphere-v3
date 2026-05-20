@@ -1,12 +1,5 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-import uvicorn
-
-app = FastAPI(title="WeatherSphere")
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+from flask import Flask, render_template, jsonify
+app = Flask(__name__)
 
 CITIES = [
     {"name":"Tokyo","country":"Japan","temp":22,"feels":21,"humidity":65,"wind":12,"condition":"Partly Cloudy","icon":"⛅","high":25,"low":18,"pressure":1013,"visibility":10,"uv":6,"aqi":42},
@@ -40,24 +33,28 @@ AGENTS = [
     {"name":"AQI Monitor","model":"MiMo V2.5","status":"active","runs":"1,780","tokens":"5.1M","desc":"Tracks air quality indices and provides health recommendations"},
 ]
 
-@app.get("/", response_class=HTMLResponse)
-async def dashboard(request: Request):
-    return templates.TemplateResponse("dashboard.html", {"request": request, "cities": CITIES, "forecast": FORECAST, "alerts": ALERTS, "agents": AGENTS})
+@app.route("/")
+def dashboard():
+    return render_template("dashboard.html", cities=CITIES, forecast=FORECAST, alerts=ALERTS, agents=AGENTS)
 
-@app.get("/city/{name}", response_class=HTMLResponse)
-async def city_detail(request: Request, name: str):
+@app.route("/city/<name>")
+def city_detail(name):
     city = next((c for c in CITIES if c["name"].lower() == name.lower()), None)
     if not city:
-        return HTMLResponse("Not found", status_code=404)
-    return templates.TemplateResponse("city.html", {"request": request, "city": city, "forecast": FORECAST, "agents": AGENTS})
+        return "Not found", 404
+    return render_template("city.html", city=city, forecast=FORECAST, agents=AGENTS)
 
-@app.get("/alerts", response_class=HTMLResponse)
-async def alerts_page(request: Request):
-    return templates.TemplateResponse("alerts.html", {"request": request, "alerts": ALERTS, "agents": AGENTS})
+@app.route("/alerts")
+def alerts_page():
+    return render_template("alerts.html", alerts=ALERTS, agents=AGENTS)
 
-@app.get("/agents", response_class=HTMLResponse)
-async def agents_page(request: Request):
-    return templates.TemplateResponse("agents.html", {"request": request, "agents": AGENTS})
+@app.route("/agents")
+def agents_page():
+    return render_template("agents.html", agents=AGENTS)
+
+@app.route("/api/cities")
+def api_cities():
+    return jsonify(CITIES)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=6400)
+    app.run(host="0.0.0.0", port=6400, debug=False)
